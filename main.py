@@ -7,7 +7,9 @@ with open("tasks.json", "r") as file:
 def show_tasks():
     "Показывает задачи в списке"
 
-    pass
+    for n in tasks:
+        for value in n.values():
+            print(value)
 
 
 def create_task():
@@ -32,10 +34,25 @@ def complete_task():
     pass
 
 
-def complete_task():
+def incomplete_task():
     "Отмечает задачу как невыполненную"
 
     pass
 
 
-create_task()
+def show_menu():
+    print(
+        "Welcome to 'To-Do List' \n",
+        "Press '1' to show all your tasks \n",
+        "Press '2' to show complete tasks \n",
+        "Press '3' to show incomplete tasks \n",
+        "Press '4' to exit",
+    )
+
+    user_inp = int(input("Print your number: "))
+
+    if user_inp == 4:
+        print("Goodbye!")
+
+
+show_menu()
