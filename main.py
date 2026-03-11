@@ -7,9 +7,18 @@ with open("tasks.json", "r") as file:
 def show_tasks():
     "Показывает задачи в списке"
 
-    for n in tasks:
-        for value in n.values():
-            print(value)
+    for task in tasks:
+
+        task_index = tasks.index(task)
+
+        if task["is_done"] == True:
+            print(f"{task_index + 1}. [x] {task['title']}")
+
+        elif task["is_done"] == False:
+            print(f"{task_index + 1}. [ ] {task['title']}")
+
+        else:
+            print("You have no tasks yet")
 
 
 def create_task():
@@ -50,6 +59,9 @@ def show_menu():
     )
 
     user_inp = int(input("Print your number: "))
+
+    if user_inp == 1:
+        show_tasks()
 
     if user_inp == 4:
         print("Goodbye!")
