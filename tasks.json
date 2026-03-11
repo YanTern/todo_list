@@ -1,7 +1,7 @@
 [
     {
         "title": "butter",
-        "is_done": true
+        "is_done": false
     },
     {
         "title": "bread",
