@@ -10,5 +10,25 @@
     {
         "title": "milk",
         "is_done": false
+    },
+    {
+        "title": "go home",
+        "is_done": false
+    },
+    {
+        "title": "go to work",
+        "is_done": false
+    },
+    {
+        "title": "go to school",
+        "is_done": false
+    },
+    {
+        "title": "sleep",
+        "is_done": false
+    },
+    {
+        "title": "sleep more",
+        "is_done": false
     }
 ]
