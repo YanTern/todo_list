@@ -1,14 +1,6 @@
 [
     {
-        "title": "butter",
-        "is_done": false
-    },
-    {
         "title": "bread",
-        "is_done": false
-    },
-    {
-        "title": "milk",
         "is_done": false
     },
     {

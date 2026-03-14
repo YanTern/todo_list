@@ -132,7 +132,7 @@ def main():
         user_choice = input("Print your number: ")
         
         if user_choice == "2":
-            delete_task(task)
+            delete_task(index)
             time.sleep(2)
             show_tasks()
     
