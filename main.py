@@ -15,7 +15,6 @@ def main():
         elif task["is_done"] == False:
             incompleted_tasks.append(task)
 
-
     def show_tasks():
         "Показывает задачи в списке"
 
@@ -26,20 +25,19 @@ def main():
 
         if len(tasks) > 0:
 
-            for task in tasks:
-                task_index = tasks.index(task)
+            for i, task in enumerate(tasks, start=1):
 
                 if task["is_done"] == True:
-                    print(f"{task_index + 1}. [x] {task['title']}")
+                    print(f"{i}. [x] {task['title']}")
 
                 elif task["is_done"] == False:
-                    print(f"{task_index + 1}. [ ] {task['title']}")
+                    print(f"{i}. [ ] {task['title']}")
 
             print("\n--------------\n")
 
             print(
                 "'task number' - choose the task\n"
-                "'0' - main menu\n"
+                "'menu' - main menu\n"
                 "'del' - delete all your tasks\n"
                 "'v' - mark all your tasks as 'complete'\n"
                 "'x' - mark all your tasks as 'incomplete'\n"
@@ -56,60 +54,96 @@ def main():
                 "'add' - add a new task\n"
                 )
 
-        user_choice = input("Print your command: ")
-
-        match user_choice:
+        user_choice = input("Print your command: ").strip()
         
-            case "0":
-                print("\n--------------\n")
-                main()
-
-            case "add":
-                create_task()
-
-            case "del":
-                print(
-                    "\n--------------\n"
-                    "\nAre you sure?\n"
-                    "\n'1' - Yes\n"
-                    "\n'2' - No\n"
-                    "\n--------------\n"
-                    )
+        if user_choice.isdigit():
             
-                sub_choice = input("Print your command: ")
+            num = int(user_choice)
+            
+            if 1 <= num <= len(tasks):
+                show_task_menu(tasks, num-1)
+            
+            else:
+                print("There's no task task with this number")
 
-                if sub_choice == "1":
-                    tasks.clear()
-                    print(
-                        "\n--------------\n"
-                        "\nAll tasks have been deleted\n"
-                        "\n--------------\n"
-                    )
-                    time.sleep(2)
+        else:
+
+            match user_choice:
+
+                case "menu":
+                    print("\n--------------\n")
                     main()
 
-                elif sub_choice == "2":
+                case "add":
+                    create_task()
+
+                case "del":
+                    print(
+                        "\n--------------\n"
+                        "\nAre you sure?\n"
+                        "\n'1' - Yes\n"
+                        "\n'2' - No\n"
+                        "\n--------------\n"
+                        )
+
+                    sub_choice = input("Print your command: ")
+
+                    if sub_choice == "1":
+                        tasks.clear()
+                        print(
+                            "\n--------------\n"
+                            "\nAll tasks have been deleted\n"
+                            "\n--------------\n"
+                        )
+                        time.sleep(2)
+                        main()
+
+                    elif sub_choice == "2":
+                        show_tasks()
+
+                case _:
+                    print(
+                        "\n--------------\n" 
+                        "Try again" 
+                        "\n--------------\n"
+                        )
+                    time.sleep(1)
                     show_tasks()
-            
-            case _:
-                print(
-                    "\n--------------\n" 
-                    "Try again" 
-                    "\n--------------\n"
-                    )
-                time.sleep(1)
-                show_tasks()
 
+    def show_task_menu(tasks, index):
+        "Открывает подменю выбранной задачи"
 
+        task = tasks[index]
+        
+        if task["is_done"] == True:
+            print(f"[x] {task['title']}")
+        
+        else:
+            print(f"[ ] {task['title']}")
+        
+        print(
+            "\n--------------\n"
+            "\nPress '1' to rename the task\n"
+            "Press '2' to delete the task\n"
+            "Press '3' to change complete status of the task\n"
+            "Press '4' to return\n"
+        )
+        
+        user_choice = input("Print your number: ")
+        
+        if user_choice == "2":
+            delete_task(task)
+            time.sleep(2)
+            show_tasks()
+    
     def show_completed_tasks():
         "Показывает выполненные задачи"
 
         if len(completed_tasks) > 0:
             print("\nCompleted tasks:\n")
 
-            for task in completed_tasks:
-                task_index = completed_tasks.index(task)
-                print(f"{task_index + 1}. [x] {task['title']}")
+            for i, task in enumerate(completed_tasks, start=1):
+                print(f"{i}. [x] {task['title']}")
         else:
             print(
                 "\nYou have no completed tasks\n" 
@@ -119,36 +153,44 @@ def main():
             time.sleep(3)
             main()
 
+        print("\n--------------\n")
+
         print(
             "'task number' - choose the task\n"
-            "'0' - main menu\n"
+            "'menu' - main menu\n"
             "'del' - delete all completed tasks\n"
             "'x' - mark all your tasks as 'incomplete'\n"
             "'add' - add a new task\n"
         )
 
-        user_choice = input("Print your command: ")
+        user_choice = input("Print your command: ").strip()
+        
+        if user_choice.isdigit():
+            
+            if 1 <= int(user_choice) <= len(completed_tasks):
+                print("sth")
+                
+        else:
+        
+            match user_choice:
 
-        match user_choice:
+                case "menu":
+                    print("\n--------------\n")
+                    main()
 
-            case "0":
-                print("\n--------------\n")
-                main()
+                case "add":
+                    create_task()
 
-            case "add":
-                create_task()
-
-            case _:
-                print(
-                    "\n--------------\n" 
-                    "Try again" 
-                    "\n--------------\n"
-                    )
-                time.sleep(1)
-                show_completed_tasks()
+                case _:
+                    print(
+                        "\n--------------\n" 
+                        "Try again" 
+                        "\n--------------\n"
+                        )
+                    time.sleep(1)
+                    show_completed_tasks()
 
         print("\n--------------\n")
-
 
     def show_incompleted_tasks():
         "Показывает невыполненные задачи"
@@ -156,9 +198,8 @@ def main():
         if len(incompleted_tasks) > 0:
             print("\nIncompleted tasks:\n")
 
-            for task in incompleted_tasks:
-                task_index = incompleted_tasks.index(task)
-                print(f"{task_index + 1}. [ ] {task['title']}")
+            for i, task in enumerate(incompleted_tasks, start=1):
+                print(f"{i}. [ ] {task['title']}")
         else:
             print(
                 "You have no incompleted tasks\n" 
@@ -180,7 +221,7 @@ def main():
         user_choice = input("Print your command: ")
 
         match user_choice:
-            
+
             case "0":
                 print("\n--------------\n")
                 main()
@@ -196,7 +237,6 @@ def main():
                     )
                 time.sleep(1)
                 show_incompleted_tasks()
-
 
     def create_task():
         "Создает новую задачу"
@@ -218,24 +258,48 @@ def main():
         time.sleep(2)
         show_tasks()
 
-
-    def delete_task():
+    def delete_task(index):
         "Удаляет задачу"
 
-        pass
+        print(
+            "\n--------------\n"
+            "\nAre you sure?\n"
+            "\n'1' - Yes\n"
+            "'2' - No\n"
+            "\n--------------\n"
+            )
 
+        sub_choice = input("Print your command: ")
+
+        if sub_choice == "1":
+            
+            del tasks[index]
+            print(
+                "\n--------------\n"
+                "\nThe task has been deleted\n"
+                "\n--------------\n"
+            )
+            
+            with open("tasks.json", "w", encoding="utf-8") as file:
+                json.dump(tasks, file, ensure_ascii=False, indent=4)
+
+        elif sub_choice == "2":
+            show_tasks()
+        
+        else:
+            print("Try again")
+            time.sleep(1)
+            delete_task(task)
 
     def complete_task():
         "Отмечает задачу как выполненную"
 
         pass
 
-
     def incomplete_task():
         "Отмечает задачу как невыполненную"
 
         pass
-
 
     def show_menu():
 
@@ -281,7 +345,6 @@ def main():
                     )
                 time.sleep(1)
                 main()
-
 
     show_menu()
 
