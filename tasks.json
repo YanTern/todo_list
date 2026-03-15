@@ -1,26 +1,22 @@
 [
     {
-        "title": "bread",
-        "is_done": false
-    },
-    {
         "title": "go home",
         "is_done": true
-    },
-    {
-        "title": "go to work",
-        "is_done": false
     },
     {
         "title": "go to school",
         "is_done": true
     },
     {
-        "title": "sleep",
+        "title": "sleep more",
         "is_done": false
     },
     {
-        "title": "sleep more",
+        "title": "new taSk",
         "is_done": false
+    },
+    {
+        "title": "name new",
+        "is_done": true
     }
 ]
